@@ -4,17 +4,18 @@ import { createServerSupabase } from '@/lib/supabase/client'
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     await requireAuth()
     const serverSupabase = createServerSupabase()
+    const { id } = await params
 
     // Obtener datos del cliente
     const { data: client, error: clientError } = await serverSupabase
       .from('clients')
       .select('*')
-      .eq('id', params.id)
+      .eq('id', id)
       .single()
 
     if (clientError || !client) {
@@ -90,7 +91,7 @@ export async function GET(
 
         // Ubicación (5 puntos)
         if (
-          client.locations.some((loc) =>
+          client.locations.some((loc: string) =>
             property.location.toLowerCase().includes(loc.toLowerCase())
           )
         ) {

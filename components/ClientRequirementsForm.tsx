@@ -372,13 +372,13 @@ export default function ClientRequirementsForm() {
         </label>
         <div className="grid grid-cols-2 gap-3">
           {PROPERTY_TYPES.map(({ value, label, icon: Icon }) => {
-            const isSelected = propertyTypes?.includes(value);
+            const isSelected = propertyTypes?.includes(value as FormData["propertyTypes"][number]);
             return (
               <Card
                 key={value}
                 selected={isSelected}
                 interactive
-                onClick={() => togglePropertyType(value)}
+                onClick={() => togglePropertyType(value as FormData["propertyTypes"][number])}
                 className="p-4 flex flex-col items-center justify-center gap-2 min-h-[100px] relative"
               >
                 <Icon

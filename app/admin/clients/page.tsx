@@ -37,6 +37,7 @@ interface Client {
   budget_min: number;
   budget_max: number;
   status: string;
+  notes?: string | null;
   created_at: string;
   last_contact_date: string | null;
   properties_sent_count?: number;

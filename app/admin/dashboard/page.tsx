@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import StatsCards from "@/components/admin/StatsCards";
 import Card from "@/components/ui/Card";
 import { format } from "date-fns";
@@ -102,24 +103,24 @@ export default function DashboardPage() {
             Acciones Rápidas
           </h2>
           <div className="space-y-2">
-            <a
+            <Link
               href="/admin/clients"
               className="block p-3 rounded-lg bg-slate-50 active:bg-slate-100 transition-colors"
             >
               <span className="font-medium text-sm sm:text-base text-slate-900">
                 Ver Todos los Clientes
               </span>
-            </a>
-            <a
+            </Link>
+            <Link
               href="/admin/properties"
               className="block p-3 rounded-lg bg-slate-50 active:bg-slate-100 transition-colors"
             >
               <span className="font-medium text-sm sm:text-base text-slate-900">
                 Gestionar Propiedades
               </span>
-            </a>
+            </Link>
             {stats.pendingContacts > 0 && (
-              <a
+              <Link
                 href="/admin/clients?status=new"
                 className="block p-3 rounded-lg bg-orange-50 active:bg-orange-100 transition-colors"
               >
@@ -128,7 +129,7 @@ export default function DashboardPage() {
                   {stats.pendingContacts > 1 ? "s" : ""} Nuevo
                   {stats.pendingContacts > 1 ? "s" : ""}
                 </span>
-              </a>
+              </Link>
             )}
           </div>
         </Card>

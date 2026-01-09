@@ -19,6 +19,7 @@ interface Property {
   parking: number;
   price: number;
   location: string;
+  images: string[] | null;
   is_active: boolean;
   created_at: string;
 }

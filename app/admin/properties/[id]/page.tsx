@@ -14,7 +14,7 @@ interface Property {
   id: string;
   title: string;
   wasi_url: string;
-  property_type: string;
+  property_type: "casa" | "apartamento" | "townhouse" | "terreno";
   bedrooms: number;
   bathrooms: number;
   parking: number;

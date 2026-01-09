@@ -17,8 +17,8 @@ interface Property {
   parking: number;
   price: number;
   location: string;
-  address: string;
-  description: string;
+  address: string | null;
+  description: string | null;
   is_active: boolean;
 }
 
@@ -256,7 +256,7 @@ export default function PropertyForm({
           </label>
           <Input
             type="text"
-            value={formData.address}
+            value={formData.address || ""}
             onChange={(e) =>
               setFormData({ ...formData, address: e.target.value })
             }
@@ -270,7 +270,7 @@ export default function PropertyForm({
             Descripción
           </label>
           <textarea
-            value={formData.description}
+            value={formData.description || ""}
             onChange={(e) =>
               setFormData({ ...formData, description: e.target.value })
             }
@@ -311,7 +311,6 @@ export default function PropertyForm({
               variant="outline"
               onClick={onCancel}
               className="flex-1 sm:flex-initial text-sm sm:text-base"
-              className="flex-1"
             >
               <X className="w-4 h-4 mr-2" />
               Cancelar

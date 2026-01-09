@@ -325,9 +325,9 @@ export async function scrapeWasiProperty(url: string): Promise<ScrapedProperty> 
           }
           
           // Estrategia 2: Si no encontramos en el div principal, buscar el párrafo y extraer divs dentro de él
+          let descParagraph = parentContainer.find('p').first();
+          
           if (descDivs.length < 3) {
-            let descParagraph = parentContainer.find('p').first();
-            
             if (descParagraph.length > 0) {
             // Buscar todos los divs dentro del párrafo (incluyendo anidados)
             descParagraph.find('div').each((_, el) => {
@@ -427,7 +427,7 @@ export async function scrapeWasiProperty(url: string): Promise<ScrapedProperty> 
             // Eliminar duplicados manteniendo el orden
             const uniqueDivs = Array.from(new Set(descDivs));
             description = uniqueDivs.join('\n');
-          } else if (descParagraph.length > 0) {
+          } else if (descParagraph && descParagraph.length > 0) {
             // Fallback: usar el texto completo del párrafo
             description = descParagraph.text().trim().replace(/\s+/g, ' ');
           }

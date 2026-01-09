@@ -4,16 +4,17 @@ import { createServerSupabase } from '@/lib/supabase/client'
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     await requireAuth()
     const serverSupabase = createServerSupabase()
+    const { id } = await params
 
     const { data, error } = await serverSupabase
       .from('contacts')
       .select('*')
-      .eq('client_id', params.id)
+      .eq('client_id', id)
       .order('contact_date', { ascending: false })
 
     if (error) {
@@ -34,17 +35,18 @@ export async function GET(
 
 export async function POST(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     await requireAuth()
     const serverSupabase = createServerSupabase()
+    const { id } = await params
     const body = await request.json()
 
     const { data, error } = await serverSupabase
       .from('contacts')
       .insert({
-        client_id: params.id,
+        client_id: id,
         contact_type: body.contactType,
         notes: body.notes,
         next_follow_up: body.nextFollowUp || null,
@@ -64,7 +66,7 @@ export async function POST(
       await serverSupabase
         .from('clients')
         .update({ status: body.updateStatus })
-        .eq('id', params.id)
+        .eq('id', id)
     }
 
     return NextResponse.json(data)
