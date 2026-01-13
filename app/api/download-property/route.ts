@@ -249,8 +249,11 @@ export async function POST(request: NextRequest) {
       compressionOptions: { level: 9 },
     })
 
+    // Convertir Buffer a Uint8Array para NextResponse
+    const uint8Array = new Uint8Array(zipBuffer)
+
     // Retornar el ZIP como respuesta
-    return new NextResponse(zipBuffer, {
+    return new NextResponse(uint8Array, {
       headers: {
         'Content-Type': 'application/zip',
         'Content-Disposition': `attachment; filename="propiedad_${scrapedData.title?.replace(/[^a-z0-9]/gi, '_').toLowerCase().substring(0, 50) || 'descarga'}.zip"`,
